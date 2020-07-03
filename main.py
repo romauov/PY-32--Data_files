@@ -24,43 +24,7 @@ def frequent_words_finder_json(json_filepath, encoding_format, top_number):
 
 
     return top_words_counter(word_array, top_number)
-    # frequent_words = {}
-    # top_frequent_words = {}
-    #
-    # for word in word_array:
-    #     frequent_words[word]=frequent_words.get(word, 0) + 1
-    #
-    #
-    # number = 0
-    # for item in sorted(frequent_words.items(), reverse=True, key=lambda couple: couple[1]):
-    #     if number == top_number:
-    #         break
-    #     else:
-    #         top_frequent_words[item[0]] = item[1]
-    #         number += 1
-    #
-    # return top_frequent_words
 
-
-
-
-    # # for word in word_array_set:
-    # #     frequency = word_array.count(word)
-    # #     top_frequent_words[word] = frequency
-    # # for word, frequency in sorted(top_frequent_words.items()):
-    # #     print(word, frequency)
-    #
-    # for number in range(top_number):
-    #     max_frequency = 0
-    #     for word in word_array_set:
-    #         if word_array.count(word) > max_frequency:
-    #             max_frequency = word_array.count(word)
-    #             frequent_word = word
-    #     top_frequent_words[frequent_word] = max_frequency
-    #     word_array_set.remove(frequent_word)
-    #
-    # print(top_frequent_words)
-    # return top_frequent_words
 
 def frequent_words_finder_xml(xml_filepath, encoding_format, top_number):
 
@@ -100,19 +64,7 @@ def frequent_words_finder_xml(xml_filepath, encoding_format, top_number):
                 word_array.append(word.lower())
 
 
-    # top_frequent_words = {}
-    # word_array_set = set(word_array)
-    #
-    # for number in range(top_number):
-    #     max_frequency = 0
-    #     for word in word_array_set:
-    #         if word_array.count(word) > max_frequency:
-    #             max_frequency = word_array.count(word)
-    #             frequent_word = word
-    #     top_frequent_words[frequent_word] = max_frequency
-    #     word_array_set.remove(frequent_word)
-    #
-    # print(top_frequent_words)
+    
     return top_words_counter(word_array, top_number)
 
 def top_words_counter(words_list, top_number):
