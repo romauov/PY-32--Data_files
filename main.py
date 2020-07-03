@@ -3,46 +3,64 @@ def frequent_words_finder_json(json_filepath, encoding_format, top_number):
     import json
     from pprint import pprint
 
-    with open('newsfiles/newsafr.json', encoding = encoding_format) as f:
+    with open(json_filepath, encoding = encoding_format) as f:
         news_data = json.load(f)
         # pprint(news_data)
         news_list = news_data['rss']['channel']['items']
 
-        word_array = []
+    word_array = []
 
     for record in news_list:
 
         split_title = record['title'].split()
         for word in split_title:
             if len(word) > 6:
-                word_array.append(word)
+                word_array.append(word.lower())
 
         split_description = record['description'].split()
         for word in split_description:
             if len(word) > 6:
-                word_array.append(word)
+                word_array.append(word.lower())
 
 
-    top_frequent_words = {}
-    word_array_set = set(word_array)
+    return top_words_counter(word_array, top_number)
+    # frequent_words = {}
+    # top_frequent_words = {}
+    #
+    # for word in word_array:
+    #     frequent_words[word]=frequent_words.get(word, 0) + 1
+    #
+    #
+    # number = 0
+    # for item in sorted(frequent_words.items(), reverse=True, key=lambda couple: couple[1]):
+    #     if number == top_number:
+    #         break
+    #     else:
+    #         top_frequent_words[item[0]] = item[1]
+    #         number += 1
+    #
+    # return top_frequent_words
 
-    # for word in word_array_set:
-    #     frequency = word_array.count(word)
-    #     top_frequent_words[word] = frequency
-    # for word, frequency in sorted(top_frequent_words.items()):
-    #     print(word, frequency)
 
-    for number in range(top_number):
-        max_frequency = 0
-        for word in word_array_set:
-            if word_array.count(word) > max_frequency:
-                max_frequency = word_array.count(word)
-                frequent_word = word
-        top_frequent_words[frequent_word] = max_frequency
-        word_array_set.remove(frequent_word)
 
-    print(top_frequent_words)
-    return top_frequent_words
+
+    # # for word in word_array_set:
+    # #     frequency = word_array.count(word)
+    # #     top_frequent_words[word] = frequency
+    # # for word, frequency in sorted(top_frequent_words.items()):
+    # #     print(word, frequency)
+    #
+    # for number in range(top_number):
+    #     max_frequency = 0
+    #     for word in word_array_set:
+    #         if word_array.count(word) > max_frequency:
+    #             max_frequency = word_array.count(word)
+    #             frequent_word = word
+    #     top_frequent_words[frequent_word] = max_frequency
+    #     word_array_set.remove(frequent_word)
+    #
+    # print(top_frequent_words)
+    # return top_frequent_words
 
 def frequent_words_finder_xml(xml_filepath, encoding_format, top_number):
 
@@ -73,30 +91,49 @@ def frequent_words_finder_xml(xml_filepath, encoding_format, top_number):
         split_title = record.split()
         for word in split_title:
             if len(word) > 6:
-                word_array.append(word)
+                word_array.append(word.lower())
 
     for record in news_descriptions:
         split_description = record.split()
         for word in split_description:
             if len(word) > 6:
-                word_array.append(word)
+                word_array.append(word.lower())
 
 
+    # top_frequent_words = {}
+    # word_array_set = set(word_array)
+    #
+    # for number in range(top_number):
+    #     max_frequency = 0
+    #     for word in word_array_set:
+    #         if word_array.count(word) > max_frequency:
+    #             max_frequency = word_array.count(word)
+    #             frequent_word = word
+    #     top_frequent_words[frequent_word] = max_frequency
+    #     word_array_set.remove(frequent_word)
+    #
+    # print(top_frequent_words)
+    return top_words_counter(word_array, top_number)
+
+def top_words_counter(words_list, top_number):
+    frequent_words = {}
     top_frequent_words = {}
-    word_array_set = set(word_array)
 
-    for number in range(top_number):
-        max_frequency = 0
-        for word in word_array_set:
-            if word_array.count(word) > max_frequency:
-                max_frequency = word_array.count(word)
-                frequent_word = word
-        top_frequent_words[frequent_word] = max_frequency
-        word_array_set.remove(frequent_word)
+    for word in words_list:
+        frequent_words[word]=frequent_words.get(word, 0) + 1
 
-    print(top_frequent_words)
+
+    number = 0
+    for item in sorted(frequent_words.items(), reverse=True, key=lambda couple: couple[1]):
+        if number == top_number:
+            break
+        else:
+            top_frequent_words[item[0]] = item[1]
+            number += 1
+
     return top_frequent_words
 
 
-frequent_words_finder_json('newsfiles/newsafr.json', 'utf-8', 10)
-frequent_words_finder_xml('newsfiles/newsafr.xml', 'utf-8', 10)
+
+print(frequent_words_finder_json('newsfiles/newsafr.json', 'utf-8', 10))
+print(frequent_words_finder_xml('newsfiles/newsafr.xml', 'utf-8', 10))
