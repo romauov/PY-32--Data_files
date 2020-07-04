@@ -64,7 +64,7 @@ def frequent_words_finder_xml(xml_filepath, encoding_format, top_number):
                 word_array.append(word.lower())
 
 
-    
+
     return top_words_counter(word_array, top_number)
 
 def top_words_counter(words_list, top_number):
@@ -72,15 +72,15 @@ def top_words_counter(words_list, top_number):
     top_frequent_words = {}
 
     for word in words_list:
-        frequent_words[word]=frequent_words.get(word, 0) + 1
+        frequent_words[word] = frequent_words.get(word, 0) + 1
 
 
     number = 0
-    for item in sorted(frequent_words.items(), reverse=True, key=lambda couple: couple[1]):
+    for word, frequency in sorted(frequent_words.items(), reverse=True, key=lambda couple: couple[1]):
         if number == top_number:
             break
         else:
-            top_frequent_words[item[0]] = item[1]
+            top_frequent_words[word] = frequency
             number += 1
 
     return top_frequent_words
